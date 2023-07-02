@@ -1,5 +1,7 @@
 import getTopAiringAnime from "@/lib/getTopAiringAnime";
 import { TopAnime } from "@/components";
+import { VideoPlayer } from "@/components";
+import SearchAnime from "@/components";
 
 export default async function Home() {
   const topAnimeData: Promise<TopAiringAnime> = getTopAiringAnime();
@@ -7,6 +9,7 @@ export default async function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      <SearchAnime
       {topAnime.results.map((anime: TopAnime, index: number) => {
         return <TopAnime key={`topanime-${index}`} {...anime} />;
       })}
