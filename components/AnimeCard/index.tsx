@@ -5,16 +5,16 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Link from "next/link";
-import getAnimeInfo from "@/lib/getAnimeInfo";
 
-const AnimeCard = async (anime: AnimeQueryType) => {
-  const animeInfo: Promise<AnimeInfo> = getAnimeInfo(anime.id);
-  const animeInfoData = await animeInfo;
-  
+const AnimeCard = async (anime: AnimeInfo) => {
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ backgroundColor: "#333", color: "#fff", maxWidth: 250 }}>
       <CardMedia
-        sx={{ height: 140 }}
+        sx={{
+          height: 0,
+          paddingTop: "100%", // Maintain aspect ratio 1:1 (square)
+          backgroundPosition: "center",
+        }}
         image={`${anime.image}`}
         title={`${anime.title}`}
       />
@@ -24,9 +24,16 @@ const AnimeCard = async (anime: AnimeQueryType) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Link href={`/watch/${animeInfoData.episodes[0].id}-episode-1`}>
-          <Button size="small">Watch</Button>
-        </Link>
+        {anime.episodes.length > 0 && (
+          <Link href={`/watch/${anime.episodes[0].id}`}>
+            <Button
+              size="small"
+              sx={{ color: "#ccc", "&:hover": { color: "#fff" } }}
+            >
+              Watch
+            </Button>
+          </Link>
+        )}
       </CardActions>
     </Card>
   );
