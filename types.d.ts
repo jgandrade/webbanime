@@ -1,11 +1,11 @@
-type TopAnime = {
+type AnimeQueryType = {
   id: "string";
   title: "string";
   image: "string";
   genres: string[];
 };
 
-type TopAiringAnime = {
+type AnimeDataResponse = {
   currentPage: number;
-  results: TopAnime[];
+  results: AnimeQueryType[];
 };

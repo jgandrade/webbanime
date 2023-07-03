@@ -4,8 +4,7 @@ import { useRouter } from "next/navigation";
 const SearchAnime = () => {
   const [query, setQuery] = useState<string>("");
   const router = useRouter();
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target;
+  const handleChange = (value: string) => {
     setQuery(value);
   };
 
@@ -16,7 +15,12 @@ const SearchAnime = () => {
 
   return (
     <form onSubmit={(event) => handleSubmit(event)}>
-      <input value={query} onChange={(event) => handleChange(event)} />
+      <input
+        type="text"
+        placeholder="Search Anime"
+        value={query}
+        onChange={(event) => handleChange(event.target.value)}
+      />
       <button type="submit">Search</button>
     </form>
   );
