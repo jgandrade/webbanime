@@ -5,17 +5,17 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
-const TopAnime = (topAnime: TopAnime) => {
+const AnimeCard = (anime: AnimeQueryType) => {
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia
         sx={{ height: 140 }}
-        image={`${topAnime.image}`}
-        title={`${topAnime.title}`}
+        image={`${anime.image}`}
+        title={`${anime.title}`}
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          {`${topAnime.title}`}
+          {`${anime.title}`}
         </Typography>
       </CardContent>
       <CardActions>
@@ -25,4 +25,4 @@ const TopAnime = (topAnime: TopAnime) => {
   );
 };
 
-export { TopAnime };
+export { AnimeCard };

@@ -4,7 +4,7 @@ import { AnimeCard } from "@/components";
 import { useParams } from "next/navigation";
 import { useEffect, useState, useCallback } from "react";
 
-export default async function SearchAnime() {
+export default async function WatchAnime() {
   const params = useParams();
   const { animeid } = params;
   const [animeData, setAnimeData] = useState<AnimeQueryType[]>();
