@@ -1,6 +1,6 @@
 import { Loading } from "@/components";
 
-const loading = () => {
+const loading = async () => {
   return <Loading />;
 };
 

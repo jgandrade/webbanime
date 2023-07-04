@@ -1,9 +1,13 @@
 import getTopAiringAnime from "@/lib/getTopAiringAnime";
-import { AnimeCard, SearchAnime } from "@/components";
+import { SearchAnime } from "@/components";
+import { Box } from "@mui/material";
 
 export default async function Root() {
+  const topAiringAnime: Promise<AnimeDataResponse> = getTopAiringAnime();
+  const topAiringAnimeData = await topAiringAnime;
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24">
+    <main>
       <SearchAnime />
     </main>
   );
