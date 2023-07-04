@@ -6,7 +6,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Link from "next/link";
 
-const AnimeCard = async (anime: AnimeInfo) => {
+const AnimeCard = (anime: AnimeInfo) => {
   return (
     <Card sx={{ backgroundColor: "#333", color: "#fff", maxWidth: 250 }}>
       <CardMedia

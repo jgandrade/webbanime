@@ -7,7 +7,7 @@ import { VideoPlayer } from "@/components";
 import { useState, useCallback, useEffect } from "react";
 import Link from "next/link";
 
-export default function WatchAnime() {
+export default async function WatchAnime() {
   const [animeInfo, setAnimeInfo] = useState<AnimeInfo>();
   const [episode, setEpisode] = useState<
     {
