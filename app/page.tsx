@@ -1,5 +1,5 @@
 import getTopAiringAnime from "@/lib/getTopAiringAnime";
-import { Carousel, SearchAnime } from "@/components";
+import { SearchAnime } from "@/components";
 import { Box } from "@mui/material";
 
 export default async function Root() {
@@ -8,7 +8,6 @@ export default async function Root() {
 
   return (
     <main>
-      <Carousel animeData={topAiringAnimeData} />
       <SearchAnime />
     </main>
   );
