@@ -3,9 +3,14 @@
 @tailwind utilities;
 
 body {
-  background: #222222;
+  background: #111111;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2em 1em;
 }
 
 main {
-  background: #222222;
+  background: #111111;
 }

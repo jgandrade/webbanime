@@ -1,13 +1,12 @@
 "use client";
-import getAnimeInfo from "@/lib/getAnimeInfo";
-import getAnimeEpisodeLinks from "@/lib/getAnimeEpisodeLinks";
+import { getAnimeEpisodeLinks, getAnimeInfo } from "@/lib";
 import { useParams } from "next/navigation";
 import { Box, Button } from "@mui/material";
-import { VideoPlayer } from "@/components";
+import { Loading, VideoPlayer } from "@/components";
 import { useState, useCallback, useEffect } from "react";
 import Link from "next/link";
 
-export default async function WatchAnime() {
+export default function WatchAnime() {
   const [animeInfo, setAnimeInfo] = useState<AnimeInfo>();
   const [episode, setEpisode] = useState<
     {
@@ -23,7 +22,8 @@ export default async function WatchAnime() {
   const updateEpisode = useCallback(async () => {
     const animeParsedId = animeid
       .replace(/-episode-\d+$/, "")
-      .replace(/-$/, "");
+      .replace(/-$/, "")
+      .replace(/--+/g, "-");
     const animeInfo: Promise<AnimeInfo> = getAnimeInfo(animeParsedId);
     const animeInfoData = await animeInfo;
     const animeEpisode: Promise<AnimeEpisode> = getAnimeEpisodeLinks(animeid);
@@ -35,6 +35,10 @@ export default async function WatchAnime() {
   useEffect(() => {
     updateEpisode();
   }, [updateEpisode]);
+
+  if (!animeInfo || !episode) {
+    return <Loading />;
+  }
 
   return (
     <Box className="flex flex-col justify-center items-center">

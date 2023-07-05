@@ -37,3 +37,18 @@ type AnimeEpisode = {
   }[];
   download: string;
 };
+
+type RecentEpisodes = {
+  currentPage: number;
+  hasNextPage: true;
+  results: Recent[];
+};
+
+type Recent = {
+  id: string;
+  episodeId: string;
+  episodeNumber: number;
+  title: string;
+  image: string;
+  url: string;
+};

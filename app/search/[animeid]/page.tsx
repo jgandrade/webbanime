@@ -1,9 +1,8 @@
 "use client";
-import searchAnime from "@/lib/searchAnime";
 import { AnimeCard } from "@/components";
 import { useParams } from "next/navigation";
 import { useEffect, useState, useCallback } from "react";
-import getAnimeInfo from "@/lib/getAnimeInfo";
+import { searchAnime, getAnimeInfo } from "@/lib";
 import { Box } from "@mui/material";
 
 export default async function SearchAnime() {
@@ -36,7 +35,7 @@ export default async function SearchAnime() {
         justifyContent: "center",
         gap: "20px",
         flexWrap: "wrap",
-        padding: "5em"
+        padding: "5em",
       }}
     >
       {animeData?.map((anime: AnimeInfo, index: number) => {
@@ -45,7 +44,7 @@ export default async function SearchAnime() {
             key={`search-${index}`}
             sx={{ width: "300px", height: "400px", flex: "0 0 300px" }}
           >
-            <AnimeCard {...anime} />
+            <AnimeCard anime={anime} />
           </Box>
         );
       })}

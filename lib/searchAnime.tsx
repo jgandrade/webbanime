@@ -6,4 +6,4 @@ async function searchAnime(animeSearchQuery: string) {
   return dataResponse;
 }
 
-export default searchAnime;
+export { searchAnime };

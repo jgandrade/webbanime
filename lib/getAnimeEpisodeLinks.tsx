@@ -6,4 +6,4 @@ async function getAnimeEpisodeLinks(animeIdAndEpisode: string) {
   return dataResponse;
 }
 
-export default getAnimeEpisodeLinks;
+export { getAnimeEpisodeLinks };
