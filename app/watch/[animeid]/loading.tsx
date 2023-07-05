@@ -1,7 +1,7 @@
-import { Loading } from "@/components";
+import { LoadingWatch } from "@/components";
 
 const loading = async () => {
-  return <Loading />;
+  return <LoadingWatch />;
 };
 
 export default loading;
