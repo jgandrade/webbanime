@@ -21,9 +21,12 @@ export default function WatchAnime() {
 
   const updateEpisode = useCallback(async () => {
     const parsedAnimeId = animeid.split("3D")[1];
+    const parsedAnimeForEpisode = animeid.split("%26")[0];
     const animeInfo: Promise<AnimeInfo> = getAnimeInfo(parsedAnimeId);
     const animeInfoData = await animeInfo;
-    const animeEpisode: Promise<AnimeEpisode> = getAnimeEpisodeLinks(animeid);
+    const animeEpisode: Promise<AnimeEpisode> = getAnimeEpisodeLinks(
+      parsedAnimeForEpisode
+    );
     const animeEpisodeData = await animeEpisode;
     setEpisode(animeEpisodeData.sources);
     setAnimeInfo(animeInfoData);
@@ -52,7 +55,10 @@ export default function WatchAnime() {
         </Box>
         <Box className="grid grid-cols-3 gap-4 sm:grid-cols-5 md:grid-cols-7 lg:grid-cols-8 xl:grid-cols-8">
           {animeInfo?.episodes.map((episode, index) => (
-            <Link key={`watch-episode-${index}`} href={`/watch/${episode.id}&${animeInfo.id}`}>
+            <Link
+              key={`watch-episode-${index}`}
+              href={`/watch/${episode.id}&id=${animeInfo.id}`}
+            >
               <button className="px-4 py-2 rounded-l-lg rounded-r-lg focus:outline-none focus:ring focus:border-red-500 bg-gray-900 text-gray-200 hover:bg-red-500 hover:text-white">
                 Episode {episode.number}
               </button>
