@@ -13,7 +13,7 @@ const TopAiringAnime = ({ data }: { data: AnimeInfo[] }) => {
       </p>
       <div className="divider h-0.5 bg-red-600 mb-8"></div>
       <Box className="flex justify-center items-center">
-        <Grid className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-4 mx-auto">
+        <Grid className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 mx-auto">
           {topAiringAnime}
         </Grid>
       </Box>
