@@ -7,6 +7,9 @@ import {
   Card,
 } from "@mui/material";
 import Link from "next/link";
+import type { Dispatch } from "redux";
+import { useDispatch } from "react-redux";
+import { setCurrentWatchData } from "@/redux/watchSlice";
 
 const AnimeCard = ({
   anime,
@@ -15,6 +18,11 @@ const AnimeCard = ({
   anime: AnimeInfo;
   episodeSpecific?: number;
 }) => {
+  const dispatch: Dispatch = useDispatch();
+  const handleAnimeWatch = (animeId: string) => {
+    dispatch(setCurrentWatchData(animeId));
+  };
+
   return (
     <Card
       sx={{
@@ -48,6 +56,7 @@ const AnimeCard = ({
                 ? anime.episodes[episodeSpecific].id
                 : anime.episodes[0].id
             }`}
+            onClick={() => handleAnimeWatch(anime.id)}
           >
             <Button
               size="small"

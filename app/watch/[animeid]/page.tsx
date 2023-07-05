@@ -1,12 +1,14 @@
 "use client";
 import { getAnimeEpisodeLinks, getAnimeInfo } from "@/lib";
 import { useParams } from "next/navigation";
-import { Box, Button } from "@mui/material";
-import { Loading, LoadingWatch, VideoPlayer } from "@/components";
+import { Box } from "@mui/material";
+import { LoadingWatch, VideoPlayer } from "@/components";
 import { useState, useCallback, useEffect } from "react";
 import Link from "next/link";
+import { useSelector } from "react-redux";
 
 export default function WatchAnime() {
+  const animeIdRedux = useSelector((state: any) => state.currentlyWatching);
   const [animeInfo, setAnimeInfo] = useState<AnimeInfo>();
   const [episode, setEpisode] = useState<
     {
@@ -20,17 +22,15 @@ export default function WatchAnime() {
   const { animeid } = params;
 
   const updateEpisode = useCallback(async () => {
-    const animeParsedId = animeid
-      .replace(/-episode-\d+$/, "")
-      .replace(/-$/, "")
-      .replace(/--+/g, "-");
-    const animeInfo: Promise<AnimeInfo> = getAnimeInfo(animeParsedId);
+    const animeInfo: Promise<AnimeInfo> = getAnimeInfo(
+      animeIdRedux.currentlyWatchingId
+    );
     const animeInfoData = await animeInfo;
     const animeEpisode: Promise<AnimeEpisode> = getAnimeEpisodeLinks(animeid);
     const animeEpisodeData = await animeEpisode;
     setEpisode(animeEpisodeData.sources);
     setAnimeInfo(animeInfoData);
-  }, [animeid]);
+  }, [animeIdRedux.currentlyWatchingId, animeid]);
 
   useEffect(() => {
     updateEpisode();
