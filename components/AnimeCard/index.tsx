@@ -1,34 +1,59 @@
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
+import {
+  Typography,
+  Button,
+  CardMedia,
+  CardContent,
+  CardActions,
+  Card,
+} from "@mui/material";
 import Link from "next/link";
 
-const AnimeCard = (anime: AnimeInfo) => {
+const AnimeCard = ({
+  anime,
+  episodeSpecific,
+}: {
+  anime: AnimeInfo;
+  episodeSpecific?: number;
+}) => {
   return (
-    <Card sx={{ backgroundColor: "#333", color: "#fff", maxWidth: 250 }}>
+    <Card
+      sx={{
+        backgroundColor: "#222",
+        color: "#fff",
+        maxWidth: 180,
+        boxShadow: "0 2px 4px rgba(0, 0, 0, 0.4)",
+      }}
+    >
       <CardMedia
         sx={{
           height: 0,
           paddingTop: "100%", // Maintain aspect ratio 1:1 (square)
           backgroundPosition: "center",
         }}
-        image={`${anime.image}`}
-        title={`${anime.title}`}
+        image={anime.image}
+        title={anime.title}
       />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {`${anime.title}`}
+      <CardContent sx={{ padding: "8px" }}>
+        <Typography gutterBottom variant="body2" component="div" noWrap>
+          {anime.title}
         </Typography>
       </CardContent>
       <CardActions>
         {anime.episodes.length > 0 && (
-          <Link href={`/watch/${anime.episodes[0].id}`}>
+          <Link
+            href={`/watch/${
+              episodeSpecific && episodeSpecific > -1
+                ? anime.episodes[episodeSpecific].id
+                : anime.episodes[0].id
+            }`}
+          >
             <Button
               size="small"
-              sx={{ color: "#ccc", "&:hover": { color: "#fff" } }}
+              sx={{
+                color: "#fff",
+                backgroundColor: "#ff5722",
+                "&:hover": { backgroundColor: "#e53935" },
+              }}
             >
               Watch
             </Button>

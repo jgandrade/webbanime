@@ -6,4 +6,4 @@ async function getAnimeInfo(animeId: string) {
   return dataResponse;
 }
 
-export default getAnimeInfo;
+export { getAnimeInfo };

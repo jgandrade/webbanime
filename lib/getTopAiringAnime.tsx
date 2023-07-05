@@ -5,4 +5,4 @@ async function getTopAiringAnime() {
   return dataResponse;
 }
 
-export default getTopAiringAnime;
+export { getTopAiringAnime };
