@@ -36,7 +36,7 @@ export default async function Root() {
   if (!animeDataTop && !animeDataRecent) {
     return <Loading />;
   }
-  
+
   return (
     <main>
       {animeDataTop && animeDataRecent && (
