@@ -5,10 +5,8 @@ import { Box } from "@mui/material";
 import { LoadingWatch, VideoPlayer } from "@/components";
 import { useState, useCallback, useEffect } from "react";
 import Link from "next/link";
-import { useSelector } from "react-redux";
 
 export default function WatchAnime() {
-  const animeIdRedux = useSelector((state: any) => state.currentlyWatching);
   const [animeInfo, setAnimeInfo] = useState<AnimeInfo>();
   const [episode, setEpisode] = useState<
     {
@@ -22,15 +20,14 @@ export default function WatchAnime() {
   const { animeid } = params;
 
   const updateEpisode = useCallback(async () => {
-    const animeInfo: Promise<AnimeInfo> = getAnimeInfo(
-      animeIdRedux.currentlyWatchingId
-    );
+    const parsedAnimeId = animeid.split("3D")[1];
+    const animeInfo: Promise<AnimeInfo> = getAnimeInfo(parsedAnimeId);
     const animeInfoData = await animeInfo;
     const animeEpisode: Promise<AnimeEpisode> = getAnimeEpisodeLinks(animeid);
     const animeEpisodeData = await animeEpisode;
     setEpisode(animeEpisodeData.sources);
     setAnimeInfo(animeInfoData);
-  }, [animeIdRedux.currentlyWatchingId, animeid]);
+  }, [animeid]);
 
   useEffect(() => {
     updateEpisode();
