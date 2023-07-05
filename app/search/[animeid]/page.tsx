@@ -1,9 +1,9 @@
 "use client";
-import { AnimeCard } from "@/components";
+import { AnimeCard, Loading } from "@/components";
 import { useParams } from "next/navigation";
 import { useEffect, useState, useCallback } from "react";
 import { searchAnime, getAnimeInfo } from "@/lib";
-import { Box } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 
 export default async function SearchAnime() {
   const params = useParams();
@@ -28,26 +28,27 @@ export default async function SearchAnime() {
     querySearch();
   }, [querySearch]);
 
+  if (!animeData) {
+    return <Loading />;
+  }
+  
   return (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        gap: "20px",
-        flexWrap: "wrap",
-        padding: "5em",
-      }}
-    >
-      {animeData?.map((anime: AnimeInfo, index: number) => {
-        return (
-          <Box
-            key={`search-${index}`}
-            sx={{ width: "300px", height: "400px", flex: "0 0 300px" }}
-          >
-            <AnimeCard anime={anime} />
-          </Box>
-        );
-      })}
+    <Box className="mt-10">
+      <h2 className="text-2xl text-white font-bold mb-4">
+        Search Anime Results
+      </h2>
+      <p className="text-gray-500 mb-8">
+        Below here are your results. Search found{" "}
+        {animeData && animeData?.length} results in total.
+      </p>
+      <div className="divider h-0.5 bg-red-600 mb-8"></div>
+      <Box className="flex justify-center items-center">
+        <Grid className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-4 mx-auto">
+          {animeData?.map((anime: AnimeInfo, index: number) => {
+            return <AnimeCard key={`search-${index}`} anime={anime} />;
+          })}
+        </Grid>
+      </Box>
     </Box>
   );
 }

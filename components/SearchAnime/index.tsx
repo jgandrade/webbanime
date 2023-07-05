@@ -23,11 +23,11 @@ const SearchAnime = () => {
         placeholder="Search Anime"
         value={query}
         onChange={(event) => handleChange(event.target.value)}
-        className="px-4 py-2 rounded-l-lg focus:outline-none focus:ring focus:border-blue-300 bg-gray-900 text-gray-200"
+        className="px-4 py-2 rounded-l-lg bg-gray-900 text-gray-200 focus:outline-none focus:ring-2 focus:ring-e53935"
       />
       <button
         type="submit"
-        className="px-4 py-2 rounded-r-lg bg-gray-700 text-white"
+        className="px-4 py-2 rounded-r-lg bg-[#e53935] text-white"
       >
         Search
       </button>

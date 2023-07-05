@@ -2,7 +2,6 @@
 import { LandingPage, Loading } from "@/components";
 import { getTopAiringAnime, getRecentEpisodes, getAnimeInfo } from "@/lib";
 import { useEffect, useState, useCallback } from "react";
-import { Box } from "@mui/material";
 
 export default async function Root() {
   const [animeDataTop, setAnimeDataTop] = useState<AnimeInfo[]>();
@@ -34,10 +33,10 @@ export default async function Root() {
     querySearch();
   }, [querySearch]);
 
-  if (!animeDataTop || !animeDataRecent) {
+  if (!animeDataTop && !animeDataRecent) {
     return <Loading />;
   }
-
+  
   return (
     <main>
       {animeDataTop && animeDataRecent && (
