@@ -2,10 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 
 type initStateType = {
   currentlyWatchingId: string;
+  currentlyWatchingTitle: string;
 };
 
 const initialState: initStateType = {
   currentlyWatchingId: "",
+  currentlyWatchingTitle: "",
 };
 
 const currentlyWatching = createSlice({
@@ -13,7 +15,8 @@ const currentlyWatching = createSlice({
   initialState,
   reducers: {
     setCurrentWatchData: (state, action) => {
-      state.currentlyWatchingId = action.payload;
+      state.currentlyWatchingId = action.payload.animeId;
+      state.currentlyWatchingTitle = action.payload.animetitle;
     },
   },
 });

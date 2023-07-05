@@ -19,8 +19,8 @@ const AnimeCard = ({
   episodeSpecific?: number;
 }) => {
   const dispatch: Dispatch = useDispatch();
-  const handleAnimeWatch = (animeId: string) => {
-    dispatch(setCurrentWatchData(animeId));
+  const handleAnimeWatch = (animeId: string, animetitle: string) => {
+    dispatch(setCurrentWatchData({ animeId: animeId, animetitle: animetitle }));
   };
 
   return (
@@ -56,7 +56,7 @@ const AnimeCard = ({
                 ? anime.episodes[episodeSpecific].id
                 : anime.episodes[0].id
             }`}
-            onClick={() => handleAnimeWatch(anime.id)}
+            onClick={() => handleAnimeWatch(anime.id, anime.title)}
           >
             <Button
               size="small"
