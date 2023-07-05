@@ -10,7 +10,7 @@ const LandingPage = ({
   recentEpisodes: AnimeInfo[];
 }) => {
   return (
-    <Box className="flex flex-col justify-center items-center mt-5">
+    <Box className="flex flex-col justify-center items-center mt-10">
       <TopAiringAnime data={topAiringAnime} />
       <RecentEpisodes data={recentEpisodes} />
     </Box>

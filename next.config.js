@@ -6,6 +6,14 @@ const nextConfig = {
   images: {
     domains: ["gogocdn.net"],
   },
+  head: {
+    link: [
+      {
+        rel: 'icon',
+        href: '/favicon.ico',
+      },
+    ],
+  },
 };
 
 module.exports = nextConfig;

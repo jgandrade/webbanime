@@ -22,6 +22,8 @@ const AnimeCard = ({
         color: "#fff",
         maxWidth: 180,
         boxShadow: "0 2px 4px rgba(0, 0, 0, 0.4)",
+        transition: "0.3s",
+        "&:hover": { transform: "scale(1.1)" },
       }}
     >
       <CardMedia
