@@ -3,7 +3,7 @@ import { Box, Grid } from "@mui/material";
 
 const TopAiringAnime = ({ data }: { data: AnimeInfo[] }) => {
   const topAiringAnime = data.map((anime) => {
-    return <AnimeCard key={anime.title} anime={anime} />;
+    return <AnimeCard  key={`${anime.title}-top`} anime={anime} />;
   });
   return (
     <Box className="mt-10">

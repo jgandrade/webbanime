@@ -5,7 +5,7 @@ const RecentEpisodes = ({ data }: { data: AnimeInfo[] }) => {
   const recentEpisodesAnime = data.map((anime) => {
     return (
       <AnimeCard
-        key={anime.title}
+        key={`${anime.title}-recent`}
         anime={anime}
         episodeSpecific={anime.episodes.length - 1}
       />
