@@ -1,9 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+*, *::after, *::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+}
+
 body {
-  background: #111111;
+  background-image: url("/webbanimebg.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -11,6 +22,86 @@ body {
   padding: 2em 1em;
 }
 
-main {
-  background: #111111;
+.MuiTypography-root {
+  font-family: "Poppins", Arial, Helvetica, sans-serif !important;
+}
+
+form {
+  position: relative;
+}
+
+input {
+  height: 50px;
+  width: 300px;
+  padding: 0 1em;
+  border: none;
+  border-radius: 0.3em;
+  font-weight: bold;
+  color: #333333
+}
+
+input:focus {
+  outline: none;
+  border: 2px solid #DC2626;
+  box-shadow: 0 0 5px #DC2626;
+}
+
+.btn-form-search {
+  position: absolute;
+  right: 0;
+  top: 7px;
+  color: #DC2626;
+}
+
+.navbar {
+  top: 0;
+  left: 0;
+  height: 80px;
+  width: 100%;
+  justify-content: space-around;
+  transition: transform 0.3s ease;
+}
+
+.slide-up {
+  transform: translateY(-100%);
+}
+
+.slide-down {
+  transform: translateY(0%);
+}
+
+@media screen and (max-width: 768px) {
+  .navbar {
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 645px) {
+  .navbar {
+    width: 97%;
+  }
+
+  .navbar h1 {
+    font-size: 1.4em;
+  }
+
+  .navbar input {
+    width: 230px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .navbar {
+    justify-content: center;
+    width: 98%;
+  }
+
+  .navbar h1 {
+    display: none;
+    font-size: 1.1em;
+  }
+
+  .navbar input {
+    width: 100%;
+  }
 }

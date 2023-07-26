@@ -1,10 +1,32 @@
+import { useState, useEffect, useCallback } from "react";
 import { AnimeCard } from "@/components/AnimeCard";
 import { Box, Grid } from "@mui/material";
+import { getTopAiringAnime, getAnimeInfo } from "@/lib";
 
-const TopAiringAnime = ({ data }: { data: AnimeInfo[] }) => {
-  const topAiringAnime = data.map((anime) => {
-    return <AnimeCard  key={`${anime.title}-top`} anime={anime} />;
+const TopAiringAnime = () => {
+  const [animeDataTop, setAnimeDataTop] = useState<AnimeInfo[]>();
+
+  const querySearch = useCallback(async () => {
+    const topAiringAnime: Promise<AnimeDataResponse> = getTopAiringAnime();
+    const topAiringAnimeData = await topAiringAnime;
+
+    const promisesArrTop = topAiringAnimeData.results.map(async (anime) => {
+      const animeInfo: Promise<AnimeInfo> = getAnimeInfo(anime.id);
+      const animeInfoData = await animeInfo;
+      return animeInfoData;
+    });
+
+    setAnimeDataTop(await Promise.all(promisesArrTop));
+  }, []);
+
+  useEffect(() => {
+    querySearch();
+  }, [querySearch]);
+
+  const topAiringAnime = animeDataTop?.map((anime) => {
+    return <AnimeCard key={`${anime.title}-top`} anime={anime} />;
   });
+
   return (
     <Box className="mt-10">
       <h2 className="text-2xl text-white font-bold mb-4">Top Airing Anime</h2>
