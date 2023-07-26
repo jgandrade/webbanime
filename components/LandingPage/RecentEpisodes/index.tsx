@@ -2,9 +2,11 @@ import { useState, useEffect, useCallback } from "react";
 import { AnimeCard } from "@/components/AnimeCard";
 import { Box, Grid } from "@mui/material";
 import { getRecentEpisodes, getAnimeInfo } from "@/lib";
+import { Loading } from "@/components/Loading";
 
 const RecentEpisodes = () => {
   const [animeDataRecent, setAnimeDataRecent] = useState<AnimeInfo[]>();
+  const [loading, setLoading] = useState<boolean>(true);
 
   const querySearch = useCallback(async () => {
     const recentEpisodes: Promise<RecentEpisodes> = getRecentEpisodes();
@@ -17,6 +19,7 @@ const RecentEpisodes = () => {
     });
 
     setAnimeDataRecent(await Promise.all(promisesArrRecent));
+    setLoading(false);
   }, []);
 
   useEffect(() => {
@@ -32,6 +35,11 @@ const RecentEpisodes = () => {
       />
     );
   });
+
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
     <Box className="mt-10">
       <h2 className="text-2xl text-white font-bold mb-4">Recent Episodes</h2>

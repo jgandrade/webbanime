@@ -3,13 +3,6 @@
 @tailwind components;
 @tailwind utilities;
 
-*, *::after, *::before {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: "Poppins", Arial, Helvetica, sans-serif;
-}
-
 body {
   background-image: url("/webbanimebg.svg");
   background-repeat: no-repeat;
@@ -44,13 +37,6 @@ input:focus {
   outline: none;
   border: 2px solid #DC2626;
   box-shadow: 0 0 5px #DC2626;
-}
-
-.btn-form-search {
-  position: absolute;
-  right: 0;
-  top: 7px;
-  color: #DC2626;
 }
  
 .navbar {

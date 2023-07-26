@@ -4,7 +4,7 @@ import RecentEpisodes from "./RecentEpisodes";
 
 const LandingPage = () => {
   return (
-    <Box className="flex flex-col justify-center items-center mt-10">
+    <Box className="flex flex-col justify-center items-center mt-10 w-full">
       <TopAiringAnime />
       <RecentEpisodes />
     </Box>
