@@ -1,8 +1,29 @@
+import { useState, useEffect, useCallback } from "react";
 import { AnimeCard } from "@/components/AnimeCard";
 import { Box, Grid } from "@mui/material";
+import { getRecentEpisodes, getAnimeInfo } from "@/lib";
 
-const RecentEpisodes = ({ data }: { data: AnimeInfo[] }) => {
-  const recentEpisodesAnime = data.map((anime) => {
+const RecentEpisodes = () => {
+  const [animeDataRecent, setAnimeDataRecent] = useState<AnimeInfo[]>();
+
+  const querySearch = useCallback(async () => {
+    const recentEpisodes: Promise<RecentEpisodes> = getRecentEpisodes();
+    const recentEpisodesData = await recentEpisodes;
+
+    const promisesArrRecent = recentEpisodesData.results.map(async (anime) => {
+      const animeInfo: Promise<AnimeInfo> = getAnimeInfo(anime.id);
+      const animeInfoData = await animeInfo;
+      return animeInfoData;
+    });
+
+    setAnimeDataRecent(await Promise.all(promisesArrRecent));
+  }, []);
+
+  useEffect(() => {
+    querySearch();
+  }, [querySearch]);
+
+  const recentEpisodesAnime = animeDataRecent?.map((anime) => {
     return (
       <AnimeCard
         key={`${anime.title}-recent`}

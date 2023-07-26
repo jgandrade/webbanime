@@ -6,3 +6,4 @@ export { Loading } from "./Loading";
 export { LoadingWatch } from "./LoadingWatch";
 export { LandingPage } from "./LandingPage";
 export { ReduxProvider } from "./Provider";
+export { Navbar } from "./Navbar";

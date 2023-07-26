@@ -1,6 +1,6 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
-import { SearchAnime, ReduxProvider } from "@/components";
+import { ReduxProvider, Navbar } from "@/components";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,7 +18,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ReduxProvider>
-          <SearchAnime />
+          <Navbar />
           {children}
         </ReduxProvider>
       </body>
