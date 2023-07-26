@@ -35,27 +35,30 @@ export default function WatchAnime() {
   const { animeid } = params;
 
   const updateEpisode = useCallback(async () => {
+    const page = animeid.split("page")[1];
     const [, episodeNumber, ,] = animeid.split(/-episode-|&id=/);
     const parsedAnimeId = animeid.split("3D")[1];
     const parsedAnimeForEpisode = animeid.split("%26")[0];
-    const animeInfo: Promise<AnimeInfo> = getAnimeInfo(parsedAnimeId);
+    const animeInfo: Promise<AnimeInfo> = getAnimeInfo(
+      parsedAnimeId.split("%26")[0]
+    );
     const animeInfoData = await animeInfo;
     const animeEpisode: Promise<AnimeEpisode> = getAnimeEpisodeLinks(
       parsedAnimeForEpisode
     );
     const animeEpisodeData = await animeEpisode;
+
     setEpisode(animeEpisodeData.sources);
     setAnimeInfo(animeInfoData);
     setCurrentEpisode(episodeNumber.split("%")[0]);
+    if (page) {
+      setCurrentPage(Number(page.split("%3D")[1]));
+    }
   }, [animeid]);
 
   useEffect(() => {
     updateEpisode();
   }, [updateEpisode]);
-
-  useEffect(() => {
-    console.log(currentEpisode);
-  });
 
   if (!animeInfo || !episode) {
     return (
@@ -82,7 +85,7 @@ export default function WatchAnime() {
           {episodesToShow?.map((episode, index) => (
             <Link
               key={`watch-episode-${index}`}
-              href={`/watch/${episode.id}&id=${animeInfo.id}`}
+              href={`/watch/${episode.id}&id=${animeInfo.id}&page=${currentPage}`}
             >
               <button
                 className={`px-4 py-2 rounded-l-lg rounded-r-lg focus:outline-none focus:ring focus:border-red-500 ${

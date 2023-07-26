@@ -29,7 +29,11 @@ export default async function SearchAnime() {
   }, [querySearch]);
 
   if (!animeData) {
-    return <Loading />;
+    return (
+      <Box className="mt-10">
+        <Loading />
+      </Box>
+    );
   }
 
   return (
