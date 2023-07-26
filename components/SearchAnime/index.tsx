@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { TextField, InputAdornment, Button } from "@mui/material";
+import { Button } from "@mui/material";
 import { Search } from "@mui/icons-material";
+
 const SearchAnime = () => {
   const [query, setQuery] = useState<string>("");
   const router = useRouter();
