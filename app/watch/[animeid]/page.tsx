@@ -4,6 +4,7 @@ import { useParams } from "next/navigation";
 import { Box } from "@mui/material";
 import { LoadingWatch, VideoPlayer } from "@/components";
 import { useState, useCallback, useEffect } from "react";
+import Pagination from "@mui/material/Pagination";
 import Link from "next/link";
 
 export default function WatchAnime() {
@@ -41,10 +42,10 @@ export default function WatchAnime() {
   }
 
   return (
-    <Box className="mt-10">
+    <Box className="mt-20 flex justify-center items-center flex-col">
       <h2 className="text-2xl text-white font-bold mb-4">{animeInfo.title}</h2>
-      <p className="text-gray-500 mb-8">{animeInfo.description}</p>
-      <div className="divider h-0.5 bg-red-600 mb-8"></div>
+      <p className="text-gray-500 mb-8 w-[60%]">{animeInfo.description}</p>
+      <div className="divider h-0.5 bg-red-600 mb-8 w-[60%]"></div>
       <Box className="flex flex-col justify-center items-center mt-10">
         <Box className="container max-w-4xl mx-auto flex flex-col items-center px-6 mb-14">
           {episode && (

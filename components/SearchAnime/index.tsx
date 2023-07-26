@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Button } from "@mui/material";
 import { Search } from "@mui/icons-material";
 
 const SearchAnime = () => {
@@ -27,9 +26,12 @@ const SearchAnime = () => {
         onChange={(event) => handleChange(event.target.value)}
         spellCheck={false}
       />
-      <Button className="btn-form-search" type="submit">
+      <button
+        className="absolute right-3 top-[10px] text-[#DC2626]"
+        type="submit"
+      >
         <Search />
-      </Button>
+      </button>
     </form>
   );
 };

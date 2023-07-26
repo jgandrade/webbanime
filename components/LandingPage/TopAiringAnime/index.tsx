@@ -2,9 +2,11 @@ import { useState, useEffect, useCallback } from "react";
 import { AnimeCard } from "@/components/AnimeCard";
 import { Box, Grid } from "@mui/material";
 import { getTopAiringAnime, getAnimeInfo } from "@/lib";
+import { Loading } from "@/components/Loading";
 
 const TopAiringAnime = () => {
   const [animeDataTop, setAnimeDataTop] = useState<AnimeInfo[]>();
+  const [loading, setLoading] = useState<boolean>(true);
 
   const querySearch = useCallback(async () => {
     const topAiringAnime: Promise<AnimeDataResponse> = getTopAiringAnime();
@@ -17,6 +19,7 @@ const TopAiringAnime = () => {
     });
 
     setAnimeDataTop(await Promise.all(promisesArrTop));
+    setLoading(false);
   }, []);
 
   useEffect(() => {
@@ -27,6 +30,10 @@ const TopAiringAnime = () => {
     return <AnimeCard key={`${anime.title}-top`} anime={anime} />;
   });
 
+  if (loading) {
+    return <Loading />;
+  }
+  
   return (
     <Box className="mt-10">
       <h2 className="text-2xl text-white font-bold mb-4">Top Airing Anime</h2>
