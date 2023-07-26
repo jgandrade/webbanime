@@ -1,7 +1,7 @@
 "use client";
 import { getAnimeEpisodeLinks, getAnimeInfo } from "@/lib";
 import { useParams } from "next/navigation";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { LoadingWatch, VideoPlayer } from "@/components";
 import { useState, useCallback, useEffect } from "react";
 import Pagination from "@mui/material/Pagination";
@@ -9,6 +9,20 @@ import Link from "next/link";
 
 export default function WatchAnime() {
   const [animeInfo, setAnimeInfo] = useState<AnimeInfo>();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [currentEpisode, setCurrentEpisode] = useState<string | undefined>(
+    undefined
+  );
+  const itemsPerPage = 40;
+  const startIndex: number = (currentPage - 1) * itemsPerPage;
+  const endIndex: number = startIndex + itemsPerPage;
+  const episodesToShow: AnimeInfo["episodes"] | undefined =
+    animeInfo?.episodes.slice(startIndex, endIndex);
+
+  const handlePageChange = (_: React.ChangeEvent<unknown>, newPage: number) => {
+    setCurrentPage(newPage);
+  };
+
   const [episode, setEpisode] = useState<
     {
       url: string;
@@ -21,6 +35,7 @@ export default function WatchAnime() {
   const { animeid } = params;
 
   const updateEpisode = useCallback(async () => {
+    const [, episodeNumber, ,] = animeid.split(/-episode-|&id=/);
     const parsedAnimeId = animeid.split("3D")[1];
     const parsedAnimeForEpisode = animeid.split("%26")[0];
     const animeInfo: Promise<AnimeInfo> = getAnimeInfo(parsedAnimeId);
@@ -31,14 +46,23 @@ export default function WatchAnime() {
     const animeEpisodeData = await animeEpisode;
     setEpisode(animeEpisodeData.sources);
     setAnimeInfo(animeInfoData);
+    setCurrentEpisode(episodeNumber.split("%")[0]);
   }, [animeid]);
 
   useEffect(() => {
     updateEpisode();
   }, [updateEpisode]);
 
+  useEffect(() => {
+    console.log(currentEpisode);
+  });
+
   if (!animeInfo || !episode) {
-    return <LoadingWatch />;
+    return (
+      <Box className="mt-20 flex justify-center items-center flex-col">
+        <LoadingWatch />
+      </Box>
+    );
   }
 
   return (
@@ -55,17 +79,32 @@ export default function WatchAnime() {
           )}
         </Box>
         <Box className="grid grid-cols-3 gap-4 sm:grid-cols-5 md:grid-cols-7 lg:grid-cols-8 xl:grid-cols-8">
-          {animeInfo?.episodes.map((episode, index) => (
+          {episodesToShow?.map((episode, index) => (
             <Link
               key={`watch-episode-${index}`}
               href={`/watch/${episode.id}&id=${animeInfo.id}`}
             >
-              <button className="px-4 py-2 rounded-l-lg rounded-r-lg focus:outline-none focus:ring focus:border-red-500 bg-gray-900 text-gray-200 hover:bg-red-500 hover:text-white">
+              <button
+                className={`px-4 py-2 rounded-l-lg rounded-r-lg focus:outline-none focus:ring focus:border-red-500 ${
+                  currentEpisode === String(episode.number)
+                    ? "bg-[#DC2626]"
+                    : "bg-gray-900"
+                }  text-gray-200 hover:bg-red-500 hover:text-white`}
+              >
                 Episode {episode.number}
               </button>
             </Link>
           ))}
         </Box>
+        <Pagination
+          count={Math.ceil(animeInfo.episodes.length / itemsPerPage)}
+          page={currentPage}
+          onChange={handlePageChange}
+          variant="outlined"
+          shape="rounded"
+          color="primary"
+          className="mt-8"
+        />
       </Box>
     </Box>
   );
