@@ -35,6 +35,8 @@ export default function WatchAnime() {
   const { animeid } = params;
 
   const updateEpisode = useCallback(async () => {
+    const urlParams = new URLSearchParams(animeid.split("?")[1]);
+    const animeId = urlParams.get("id");
     const page = animeid.split("page")[1];
     const [, episodeNumber, ,] = animeid.split(/-episode-|&id=/);
     const parsedAnimeId = animeid.split("3D")[1];
@@ -47,6 +49,8 @@ export default function WatchAnime() {
       parsedAnimeForEpisode
     );
     const animeEpisodeData = await animeEpisode;
+
+    animeInfoData.id = animeId as string;
 
     setEpisode(animeEpisodeData.sources);
     setAnimeInfo(animeInfoData);

@@ -55,7 +55,7 @@ const AnimeCard = ({
               episodeSpecific && episodeSpecific > -1
                 ? anime.episodes[episodeSpecific].id
                 : anime.episodes[0].id
-            }&id=${anime.id}`}
+            }?id=${anime.id}`}
             onClick={() => handleAnimeWatch(anime.id, anime.title)}
           >
             <Button
