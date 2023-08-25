@@ -21,7 +21,16 @@ export default async function SearchAnime() {
       return animeInfoData;
     });
 
-    setAnimeData(await Promise.all(promisesArr));
+    const promisesResolvedArr = await Promise.all(promisesArr);
+
+    const tweakedResolvedArr = promisesResolvedArr.map(
+      (animeInfo, index) => {
+        animeInfo.id = searchAnimeData.results[index].id;
+        return animeInfo;
+      }
+    );
+
+    setAnimeData(tweakedResolvedArr);
   }, [animeid]);
 
   useEffect(() => {
