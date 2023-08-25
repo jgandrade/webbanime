@@ -7,13 +7,14 @@ import { useState, useCallback, useEffect } from "react";
 import Pagination from "@mui/material/Pagination";
 import Link from "next/link";
 
+const itemsPerPage = 40;
+
 export default function WatchAnime() {
   const [animeInfo, setAnimeInfo] = useState<AnimeInfo>();
   const [currentPage, setCurrentPage] = useState(1);
   const [currentEpisode, setCurrentEpisode] = useState<string | undefined>(
     undefined
   );
-  const itemsPerPage = 40;
   const startIndex: number = (currentPage - 1) * itemsPerPage;
   const endIndex: number = startIndex + itemsPerPage;
   const episodesToShow: AnimeInfo["episodes"] | undefined =
@@ -35,12 +36,17 @@ export default function WatchAnime() {
   const { animeid } = params;
 
   const updateEpisode = useCallback(async () => {
-    const urlParams = new URLSearchParams(animeid.split("?")[1]);
-    const animeId = urlParams.get("id");
-    const page = animeid.split("page")[1];
-    const [, episodeNumber, ,] = animeid.split(/-episode-|&id=/);
+    const url = new URL(window.location.href);
+    const params = new URLSearchParams(url.search);
+    let animeId: string = "";
+    let page: string = "";
+    if (params) {
+      animeId = params.get("id") as string;
+      page = params.get("page") as string;
+    }
+    const [, episodeNumber, ,] = animeid.split(/-episode-|\?id=/);
     const parsedAnimeForEpisode = animeid.split("%26")[0];
-    const animeInfo: Promise<AnimeInfo> = getAnimeInfo(animeId as string);
+    const animeInfo: Promise<AnimeInfo> = getAnimeInfo(animeId);
     const animeInfoData = await animeInfo;
     const animeEpisode: Promise<AnimeEpisode> = getAnimeEpisodeLinks(
       parsedAnimeForEpisode
@@ -53,7 +59,7 @@ export default function WatchAnime() {
     setAnimeInfo(animeInfoData);
     setCurrentEpisode(episodeNumber.split("%")[0]);
     if (page) {
-      setCurrentPage(Number(page.split("%3D")[1]));
+      setCurrentPage(Number(page));
     }
   }, [animeid]);
 
@@ -86,7 +92,7 @@ export default function WatchAnime() {
           {episodesToShow?.map((episode, index) => (
             <Link
               key={`watch-episode-${index}`}
-              href={`/watch/${episode.id}&id=${animeInfo.id}&page=${currentPage}`}
+              href={`/watch/${episode.id}?id=${animeInfo.id}&page=${currentPage}`}
             >
               <button
                 className={`px-4 py-2 rounded-l-lg rounded-r-lg focus:outline-none focus:ring focus:border-red-500 ${
