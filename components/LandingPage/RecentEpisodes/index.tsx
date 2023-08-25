@@ -18,7 +18,16 @@ const RecentEpisodes = () => {
       return animeInfoData;
     });
 
-    setAnimeDataRecent(await Promise.all(promisesArrRecent));
+    const promisesResolvedArrRecent = await Promise.all(promisesArrRecent);
+
+    const tweakedResolvedArrRecent = promisesResolvedArrRecent.map(
+      (animeInfo, index) => {
+        animeInfo.id = recentEpisodesData.results[index].id;
+        return animeInfo;
+      }
+    );
+
+    setAnimeDataRecent(tweakedResolvedArrRecent);
     setLoading(false);
   }, []);
 

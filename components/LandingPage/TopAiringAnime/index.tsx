@@ -18,7 +18,16 @@ const TopAiringAnime = () => {
       return animeInfoData;
     });
 
-    setAnimeDataTop(await Promise.all(promisesArrTop));
+    const promisesResolvedArrTop = await Promise.all(promisesArrTop);
+
+    const tweakedResolvedArrTop = promisesResolvedArrTop.map(
+      (animeInfo, index) => {
+        animeInfo.id = topAiringAnimeData.results[index].id;
+        return animeInfo;
+      }
+    );
+
+    setAnimeDataTop(tweakedResolvedArrTop);
     setLoading(false);
   }, []);
 
@@ -33,7 +42,7 @@ const TopAiringAnime = () => {
   if (loading) {
     return <Loading />;
   }
-  
+
   return (
     <Box className="mt-10">
       <h2 className="text-2xl text-white font-bold mb-4">Top Airing Anime</h2>
