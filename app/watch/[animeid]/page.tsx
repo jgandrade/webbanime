@@ -48,7 +48,6 @@ export default function WatchAnime() {
     const parsedAnimeForEpisode = animeid.split("%26")[0];
     const animeInfo: Promise<AnimeInfo> = getAnimeInfo(animeId);
     const animeInfoData = await animeInfo;
-    console.log(animeInfoData);
     const animeEpisode: Promise<AnimeEpisode> = getAnimeEpisodeLinks(
       parsedAnimeForEpisode
     );
