@@ -205,7 +205,7 @@ const Navbar = () => {
             </Box>
           ) : (
             <button
-              className="bg-[#ff5722] hover:bg-[#db603a] text-white font-bold py-2 px-4 rounded-full flex items-center"
+              className="bg-[#ff5722] hover:bg-[#db603a] text-white font-bold py-2 px-4 rounded-full flex items-center mt-5"
               onClick={() => {
                 login();
                 setMobileMenuOpen(false);
@@ -239,7 +239,7 @@ const Navbar = () => {
         </Box>
       ) : (
         <button
-          className="bg-[#ff5722] hover:bg-[#db603a] text-white font-bold py-2 px-4 rounded-full flex items-center"
+          className="bg-[#ff5722] hover:bg-[#db603a] text-white font-bold py-2 px-4 rounded-full hidden md:flex items-center"
           onClick={login}
         >
           Login with <GoogleIcon className="ml-2" />
