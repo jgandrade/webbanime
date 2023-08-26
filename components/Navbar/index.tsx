@@ -55,7 +55,7 @@ const Navbar = () => {
             photo: user?.photoURL,
             favorites: [],
           })
-            .then((log) => log)
+            .then((_) => window.location.reload())
             .catch((err) => err);
         } else {
           const docRef = doc(db, "Users", user?.uid);
