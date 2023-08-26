@@ -20,7 +20,7 @@ const Loading = () => {
     }
   );
   return (
-    <Box className="mt-10">
+    <Box className="mt-20">
       <Box className="w-64 h-8 bg-gray-500 rounded animate-pulse mb-4"></Box>
       <Box className="w-40 h-4 bg-gray-400 rounded animate-pulse mb-8"></Box>
       <Box className="w-64 h-0.5 bg-red-600 mb-8"></Box>
