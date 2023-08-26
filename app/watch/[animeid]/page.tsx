@@ -76,7 +76,7 @@ export default function WatchAnime() {
   }
 
   return (
-    <Box className="mt-20 flex justify-center items-center flex-col">
+    <Box className="mt-20 flex justify-center items-center flex-col min-h-screen">
       <h2 className="text-2xl text-white font-bold mb-4">{animeInfo.title}</h2>
       <p className="text-gray-500 mb-8 w-[60%]">{animeInfo.description}</p>
       <div className="divider h-0.5 bg-red-600 mb-8 w-[60%]"></div>

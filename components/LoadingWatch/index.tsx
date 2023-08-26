@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 
 const LoadingWatch = () => {
   return (
-    <Box className="flex flex-col justify-center items-center mt-10 w-[60%]">
+    <Box className="flex flex-col justify-center items-center mt-10 w-[60%] min-h-screen">
       <Box className="w-64 h-8 bg-gray-500 rounded animate-pulse mb-4 self-start"></Box>
       <Box className="w-40 h-4 bg-gray-400 rounded animate-pulse mb-8 self-start"></Box>
       <div className="divider h-0.5 bg-red-600 mb-8 w-full"></div>

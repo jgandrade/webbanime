@@ -10,6 +10,13 @@ import Link from "next/link";
 import type { Dispatch } from "redux";
 import { useDispatch } from "react-redux";
 import { setCurrentWatchData } from "@/redux/watchSlice";
+import { useCallback } from "react";
+import { doc, getDoc, setDoc } from "firebase/firestore";
+import { db } from "@/firebase/firebaseConfig";
+import useDetails from "@/hooks/useDetails";
+import { setUserDetails } from "@/redux/userSlice";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import HeartBrokenIcon from "@mui/icons-material/HeartBroken";
 
 const AnimeCard = ({
   anime,
@@ -19,9 +26,64 @@ const AnimeCard = ({
   episodeSpecific?: number;
 }) => {
   const dispatch: Dispatch = useDispatch();
+  const { id, name: userName, photo, favorites } = useDetails();
   const handleAnimeWatch = (animeId: string, animetitle: string) => {
     dispatch(setCurrentWatchData({ animeId: animeId, animetitle: animetitle }));
   };
+
+  const addToFavorites = useCallback(
+    async (animeId: string) => {
+      const docRef = doc(db, "Users", id);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        dispatch(
+          setUserDetails({
+            id: id,
+            name: userName,
+            photo: photo,
+            favorites: [...favorites, animeId],
+          })
+        );
+
+        return setDoc(doc(db, "Users", id), {
+          ...docSnap.data(),
+          favorites: [...favorites, animeId],
+        })
+          .then((_) => _)
+          .catch((err) => err);
+      }
+    },
+    [dispatch, favorites, id, photo, userName]
+  );
+
+  const removeFromFavorites = useCallback(
+    async (animeId: string) => {
+      const docRef = doc(db, "Users", id);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        dispatch(
+          setUserDetails({
+            id: id,
+            name: userName,
+            photo: photo,
+            favorites: [
+              ...favorites.filter((favorite: string) => favorite !== animeId),
+            ],
+          })
+        );
+
+        return setDoc(doc(db, "Users", id), {
+          ...docSnap.data(),
+          favorites: [
+            ...favorites.filter((favorite: string) => favorite !== animeId),
+          ],
+        })
+          .then((_) => _)
+          .catch((err) => err);
+      }
+    },
+    [dispatch, favorites, id, photo, userName]
+  );
 
   return (
     <Card
@@ -48,7 +110,7 @@ const AnimeCard = ({
           {anime.title}
         </Typography>
       </CardContent>
-      <CardActions>
+      <CardActions className="flex justify-start items-center gap-3 w-full">
         {anime.episodes.length > 0 && (
           <Link
             href={`/watch/${
@@ -70,6 +132,33 @@ const AnimeCard = ({
             </Button>
           </Link>
         )}
+        {id ? (
+          favorites?.some((e: any) => e === anime.id) ? (
+            <Button
+              onClick={() => removeFromFavorites(anime.id)}
+              size="small"
+              sx={{
+                color: "#fff",
+                backgroundColor: "#ff5722",
+                "&:hover": { backgroundColor: "#e53935" },
+              }}
+            >
+              <HeartBrokenIcon />
+            </Button>
+          ) : (
+            <Button
+              onClick={() => addToFavorites(anime.id)}
+              size="small"
+              sx={{
+                color: "#fff",
+                backgroundColor: "#ff5722",
+                "&:hover": { backgroundColor: "#e53935" },
+              }}
+            >
+              <FavoriteIcon />
+            </Button>
+          )
+        ) : null}
       </CardActions>
     </Card>
   );

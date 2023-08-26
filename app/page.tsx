@@ -2,7 +2,7 @@ import { LandingPage } from "@/components";
 
 export default async function Root() {
   return (
-    <main>
+    <main className="min-h-screen">
       <LandingPage />
     </main>
   );

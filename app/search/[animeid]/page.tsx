@@ -23,12 +23,10 @@ export default async function SearchAnime() {
 
     const promisesResolvedArr = await Promise.all(promisesArr);
 
-    const tweakedResolvedArr = promisesResolvedArr.map(
-      (animeInfo, index) => {
-        animeInfo.id = searchAnimeData.results[index].id;
-        return animeInfo;
-      }
-    );
+    const tweakedResolvedArr = promisesResolvedArr.map((animeInfo, index) => {
+      animeInfo.id = searchAnimeData.results[index].id;
+      return animeInfo;
+    });
 
     setAnimeData(tweakedResolvedArr);
   }, [animeid]);
@@ -46,7 +44,7 @@ export default async function SearchAnime() {
   }
 
   return (
-    <Box className="mt-10">
+    <Box className="mt-10 min-h-screen">
       <h2 className="text-2xl text-white font-bold mb-4">
         Search Anime Results
       </h2>
